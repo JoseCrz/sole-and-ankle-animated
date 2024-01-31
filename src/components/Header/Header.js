@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { QUERIES, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
-import VisuallyHidden from '../VisuallyHidden';
+import { QUERIES, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -114,15 +114,51 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
+function NavLink({ children, ...rest }) {
+  return (
+    <A {...rest}>
+      <First>{children}</First>
+      <Second>{children}</Second>
+    </A>
+  );
+}
 
-  &:first-of-type {
+const A = styled.a`
+  text-decoration: none;
+  height: 27px;
+  overflow: hidden;
+  color: var(--color-gray-900);
+  text-transform: uppercase;
+  font-size: 1.125rem;
+`;
+
+const First = styled.span`
+  display: block;
+  font-weight: ${WEIGHTS.medium};
+  transition: transform 200ms;
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    ${A}:hover & {
+      transform: translateY(-100%);
+      transition: transform 150ms;
+    }
+  }
+
+  /* &:first-of-type {
     color: var(--color-secondary);
+  } */
+`;
+
+const Second = styled.span`
+  display: block;
+  font-weight: ${WEIGHTS.bold};
+  transition: transform 200ms;
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    ${A}:hover & {
+      transform: translateY(-100%);
+      transition: transform 150ms;
+    }
   }
 `;
 
